@@ -114,3 +114,44 @@ setenv =
 	GEMFURY_URL = ...
 ```
 This doesn't seem to work very well however. Must be missing something.
+
+## Example 6 - Conditional statments
+Certain commands can be made to be conditional on other commands by using ':' to separate them. For example,
+```
+...
+[testenv]
+deps = tests:pytest
+```
+represents an instruction to tox to install *pytest* only in the *tests* environment.
+This leads on to defining new testenvs using the conditional structure as shown in example 7
+
+
+## Example 7 - Defining other environments
+Using the *[testenv:NAME]* structure, we can define multiple different virtualenvs within which different dependencies, commands etc can be installed / invoked. For example:
+```
+[tox]  # Global config
+skipsdist = true
+envlist = py38
+
+[testenv:tests]  # invoke with > tox -e tests
+description = Runs the tests in python 3.6
+deps = -r requirements_tests.txt  # 2.11.0
+commands =
+	python -c "print('Running tests testenv')"
+	python -c "import requests as re; print(re.__version__)"
+
+
+[testenv:somethingelse]  # invoke with > tox -e somethingelse
+description = Runs something else in python 3.8
+deps = -r requirements_other.txt  # 2.18.2
+commands =
+	python -c "print('Running something else')"
+	python -c "import requests as re; print(re.__version__)"
+```
+Now, the following commands will be possible:
+- `tox` which will run both environments and commands
+- `tox -e tests` which will run only the *[testenv:tests]* environment and commands, printing 2.11.0 as the version of requests installed from requirements_tests.txt
+- `tox -e somethingelse` which will run only the last environment and print the other version of the requests library as seen in the requirements_other.txt file.
+- `tox -av` will print all the possible environments along with their description fields. Very handy.
+
+A separate `[testenv]` block can be defined which contains settings that will be applied to any subsequent environments that have *testenv* as the left part of the : conditional
