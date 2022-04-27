@@ -71,7 +71,7 @@ commands =
 	pytest --version
 	pytest {posargs:tests/}
 ```
-In the last line of the commands block, the command run in the virtualenv is *pytest <command line argument>*. The cmd line args are parsed in the form *{posargs:<default value>}*.
+In the last line of the commands block, the command run in the virtualenv is *pytest COMMAND_ARGS*. The cmd line args are parsed in the form *{posargs:default_value}*.
 In this example, the default argument for that command is *tests/* making the final command *pytest tests/* which tells pytest to run all the tests in the *tests/* directory.
 
 Additional dependencies can be included by directly calling the requirments.txt file:
