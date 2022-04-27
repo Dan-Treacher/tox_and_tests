@@ -5,9 +5,9 @@ from setuptools import find_packages, setup
 
 # Package meta-data.
 NAME = "src"
-DESCRIPTION = "Bleeding Edge Math"
-URL = "https://github.com/ChristopherGS/tox_examples"
-AUTHOR = "ChristopherGS"
+DESCRIPTION = "Example stuff"
+URL = "https://github.com/Dan-Treacher/tox_and_tests/"
+AUTHOR = "Dan Treacher"
 REQUIRES_PYTHON = ">=3.6.0"
 
 # Set package version
